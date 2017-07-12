@@ -1,0 +1,206 @@
+% -*- program: lualatex -*-
+% !TEX program = lualatex
+\documentclass[11pt,a4paper]{moderncv}
+
+% microtype
+\usepackage{microtype}
+
+% Fix for Texlive 2017: https://tex.stackexchange.com/questions/373594/microtype-producing-dozens-of-unknown-slot-number-warnings?newreg=ded9fac9d8a747169d51bbacd8910d4e
+\makeatletter
+\def\MT@is@composite#1#2\relax{%
+  \ifx\\#2\\\else
+    \expandafter\def\expandafter\MT@char\expandafter{\csname\expandafter
+                    \string\csname\MT@encoding\endcsname
+                    \MT@detokenize@n{#1}-\MT@detokenize@n{#2}\endcsname}%
+    % 3 lines added:
+    \ifx\UnicodeEncodingName\@undefined\else
+      \expandafter\expandafter\expandafter\MT@is@uni@comp\MT@char\iffontchar\else\fi\relax
+    \fi
+    \expandafter\expandafter\expandafter\MT@is@letter\MT@char\relax\relax
+    \ifnum\MT@char@ < \z@
+      \ifMT@xunicode
+        \edef\MT@char{\MT@exp@two@c\MT@strip@prefix\meaning\MT@char>\relax}%
+          \expandafter\MT@exp@two@c\expandafter\MT@is@charx\expandafter
+            \MT@char\MT@charxstring\relax\relax\relax\relax\relax
+      \fi
+    \fi
+  \fi
+}
+% new:
+\def\MT@is@uni@comp#1\iffontchar#2\else#3\fi\relax{%
+  \ifx\\#2\\\else\edef\MT@char{\iffontchar#2\fi}\fi
+}
+\makeatother
+
+% French
+\usepackage{polyglossia}
+\setdefaultlanguage{french}
+
+% Fonts
+\usepackage{unicode-math}
+\usepackage{fontspec}
+
+\setmainfont[Ligatures={Common, TeX},
+      Path           = fonts/SourceSansPro/,
+      Extension      = .ttf,
+      UprightFont    = *-Light,
+      BoldFont       = *-Regular,
+      ItalicFont     = *-LightItalic,
+      BoldItalicFont = *-Italic]{SourceSansPro}
+
+\newfontfamily\headingfont[Ligatures={Common, TeX},
+      Path           = fonts/Alegreya/,
+      Extension      = .ttf,
+      UprightFont    = *-Regular,
+      BoldFont       = *-Bold,
+      ItalicFont     = *-Italic,
+      BoldItalicFont = *-BoldItalic]{Alegreya}
+
+% moderncv theme
+\moderncvstyle{classic}
+\moderncvcolor{red}
+\moderncvicons{awesome}
+
+% Style customization
+%% Reduce name size
+\renewcommand*{\namefont}{\fontsize{26}{28}\selectfont}
+
+%% Change title font
+\renewcommand*\titlefont{\LARGE\mdseries\slshape\headingfont}
+
+%% Change section font
+% \renewcommand*\sectionfont{\Large\headingfont}
+
+%% Tweak colors
+
+%% Text color
+
+%%% Default color
+\definecolor{color0}{RGB}{33,33,33}
+
+% \definecolor{color0}{H}{757ce8}
+
+
+%% Highligh color
+
+%%% Teal
+% \definecolor{color1}{HTML}{009688}
+
+%%% Indigo
+% \definecolor{color1}{HTML}{3F51B5}
+
+\definecolor{color1}{HTML}{0B486B}
+% \definecolor{color1}{HTML}{3B8686}
+
+%%% Default blue
+% \definecolor{color1}{RGB}{41,128,185}
+
+%% Seconday text
+% \definecolor{color2}{RGB}{117,117,117}
+% \definecolor{color2}{RGB}{155,155,155}
+% \definecolor{color2}{HTML}{607D8B}
+
+% \definecolor{color2}{HTML}{3B8686}
+\definecolor{color2}{HTML}{556270}
+
+%% Reduce margins
+\usepackage[top=0.8cm, bottom=1cm, left=1.5cm, right=1.5cm]{geometry}
+
+%% Link with icon
+\newcommand{\external}[2]{\href{#1}{{\tiny\faicon{external-link}}\,#2}}
+
+%% Date column width
+\setlength{\hintscolumnwidth}{2.5cm}
+
+%% More packages
+\usepackage{textcomp}
+\usepackage[binary-units,locale=FR]{siunitx}
+\DeclareSIUnit\octet{o}
+
+%% Tilde
+\AtBeginDocument{
+  \renewcommand{\tilde}{{\raise.17ex\hbox{\ensuremath{\scriptstyle\sim}}}}
+}
+
+% Personal data
+\name{Sébastien}{Brochet}
+
+\title{Data Scientist \newline {%
+\fontsize{14pt}{16pt}\selectfont Analyse big data -- Machine learning -- Développement%
+}}
+
+\address{Place des Martyrs 11}{1000 Bruxelles --- Belgique}{}
+\phone[mobile]{+33~6~88~37~93~56}
+\email{brochet.sebastien@gmail.com}
+\social[linkedin][www.linkedin.com/pub/s\%C3\%A9bastien-brochet/77/577/6a9]{sébastien-brochet}
+\social[github]{blinkseb}
+
+\photo[70pt][0.4pt]{Photo.jpg}
+
+\extrainfo{Disponibilité immédiate~\bullet~Permis B\\Mobilité région lyonnaise}
+
+\begin{document}
+
+  \makecvtitle%
+
+  \vspace{-13mm}
+
+  \section{Expériences professionelles}
+    \cventry{mars 2015 --- en cours}
+      {Chercheur en physique des particules (analyse de données)}
+      {CP3 --- Université Catholique de Louvain}
+      {Louvain-la-Neuve, Belgique}
+      {}
+      { \begin{itemize}%
+          \item \textbf{Analyse de données (big data)} 2015 et 2016 de CMS au  LHC, CERN ($> \SI{50}{\peta\octet}$ de données)
+          \begin{itemize}%
+            \item Développement d'outils d'analyses innovant (simulations numériques et calculs scientifiques, C++ / Python).
+            \item \textbf{Machine learning}: \textbf{deep neural networks} paramétriques avec \textbf{TensorFlow}.
+            \item Traitement, modélisation et représentation des données.
+            \item Analyse \textbf{statistique} des résultats: fit, p-valeurs, intervalles de confiance, limites d'exclusions.
+            \item Résultats \textbf{approuvés} par la collaboration CMS et \external{http://cds.cern.ch/record/2257068}{\textbf{publiés}}.
+          \end{itemize}%
+          \item Développement et maintenance d'un \textbf{framework d'analyse de données} en \textbf{C++} utilisé par environ 30 personnes.
+          \item Création, développement et support d'un outil scientifique en \textbf{C++}: \external{https://momemta.github.io}{MoMEMta} (\external{https://github.com/MoMEMta/MoMEMta/}{open source})%
+          \begin{itemize}
+            \item Architecture modulaire (via plugins) avec configuration en Lua (interfacage Lua / C++).
+            \item Mise en place d'un \textbf{serveur d'intégration continue} avec Jenkins (tests unitaires et d'intégrations).
+          \end{itemize}
+          \item Environnement de travail \textbf{international}, communication \textbf{exclusivement en anglais}. Présentations régulières en groupe de travail (\tilde50 personnes).
+        \end{itemize}
+       }
+    \cventry{oct. 2011 --- sept. 2014}
+      {Doctorant en physique des particules en collaboration avec le \emph{CERN}}
+      {\newline{} Institut de physique nucléaire de Lyon}
+      {}
+      {\small \newline{}Intitulé: \emph{Recherche de nouvelle physique dans le secteur du quark top avec l'expérience CMS au LHC}}{%
+        \begin{itemize}%
+          \item \textbf{Analyse des données} 2010, 2011 et 2012 du LHC\@.
+          \begin{itemize}
+            \item Création et développement de nouveaux outils d'analyse et de calcul scientifique (C++ et Python).
+            \item Interprétation statistique des résultats.
+          \end{itemize}
+          \item Résultats \textbf{approuvés} par la collaboration et \textbf{publiés dans un journal renomé} (\emph{Physics Review Letters}).
+          \item \textbf{Conférences internationales}: présentation des nouveaux résultats au nom de la collaboration CMS (Lake Louise, Canada, \tilde100 personnes).
+          \item \textbf{Enseignement}: chargé de TP et TD niveau licence 1\iere{} et 2\ieme{} année (\tilde 200h, C++ et physique).
+        \end{itemize}%
+      }
+
+  \section{Compétences}
+    \cvitem{Scientifique}{Analyse et représentation des données, big data (data mining), machine learning, simulations numériques, statistiques}
+    \cvitem{Programmation}{Connaissances approfondies en \textbf{C/C++}, \textbf{Python}, \textbf{Java} et \textbf{Bash}.\newline{}Maîtrise de Fortran, HTML/CSS, Javascript, \LaTeX, PHP}
+    \cvitem{Systèmes}{Maîtrise avancée de Windows et Linux (Debian / Red Hat, desktop et serveur)}
+    \cvitem{Frameworks}{Spark (SQL \& MLlib), matplotlib, scipy, TensorFlow, Keras, numpy, ROOT}
+    \cvitem{SGBD}{MySQL, noSQL (MongoDB, Cassandra)}
+    \cvitem{VCS}{\textbf{\external{https://github.com/blinkseb}{git}}, mercurial, bazaar, CVS, SVN}
+    \cvitem{\faicon{flag}}{\textbf{Anglais courant} (oral et écrit, communication scientifique et rédaction d'articles)}
+
+  \section{Formations}
+    \cventry{2011 --- 2014}{Doctorat spécialité Physique des Particules}{Institut de Physique Nucléaire}{Lyon}{}{}
+    \cventry{2009 --- 2011}{Master Physique}{Université Claude Bernard Lyon 1}{Lyon}{\textit{Mention TB}}{}
+    \cventry{2005 --- 2009}{Licence Physique-Chimie}{Université de Franche-Comté}{Besançon}{}{}
+
+  \section{Loisirs et activités}
+    \cvitem{Développement}{\textbf{Co-créateur et développeur principal} de \external{http://www.androirc.com}{AndroIRC}, un client IRC pour \textbf{Android} (Java) ; maintenance des services web associés (serveurs + machines virtuelles)}
+    \cvitem{Musique}{Pratique de la guitare dans un groupe depuis plus de 10 ans}
+\end{document}
